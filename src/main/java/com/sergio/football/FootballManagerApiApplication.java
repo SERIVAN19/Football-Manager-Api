@@ -1,0 +1,13 @@
+package com.sergio.football;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class FootballManagerApiApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FootballManagerApiApplication.class, args);
+	}
+
+}
