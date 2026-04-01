@@ -18,28 +18,28 @@ public class Club {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
+    private String name;
 
-    // Relación con Entrenador (1-1)
-    @OneToOne
+    //  Relación 1-1 con Coach
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coach_id")
-    private Entrenador entrenador;
+    private Coach coach;
 
-    // Relación con Jugadores (1-N)
-    @OneToMany(mappedBy = "club")
-    private List<Jugador> jugadores;
+    //  Relación 1-N con Player
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Player> players;
 
-    // Relación con Asociación (N-1)
-    @ManyToOne
+    //  Relación N-1 con Association
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "association_id")
-    private Asociacion asociacion;
+    private Association association;
 
-    // Relación con Competiciones (N-N)
-    @ManyToMany
+    //  Relación N-N con Competition
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "club_competitions",
             joinColumns = @JoinColumn(name = "club_id"),
             inverseJoinColumns = @JoinColumn(name = "competition_id")
     )
-    private List<Competicion> competiciones;
+    private List<Competition> competitions;
 }
