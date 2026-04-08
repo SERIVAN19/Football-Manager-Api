@@ -24,18 +24,20 @@ public class ClubServiceImpl implements ClubService {
     private final CoachRepository coachRepository;
     private final AssociationRepository associationRepository;
 
+    //Se crea el contructor con la anotation @RequiredArgsConstructor
+
+    //Metodo Interno
+    private Club findClubEntityById(Long id) {
+        return clubRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Club not found with id: " + id));
+    }
+
     @Override
     public List<ClubDTO> findAllClubs() {
         return clubRepository.findAll()
                 .stream()
                 .map(ClubMapper::toDTO)
                 .toList();
-    }
-
-    //Metodo Interno
-    private Club findClubEntityById(Long id) {
-        return clubRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Club not found with id: " + id));
     }
 
     @Override
