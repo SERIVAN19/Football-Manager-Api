@@ -14,6 +14,7 @@ public class PlayerDTO {
     private String lastName;
     private String nationality;
     private Integer age;
+    private String position;
 
     private String clubName;
 }
