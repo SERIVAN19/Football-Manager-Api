@@ -7,12 +7,14 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CoachDTO {
+public class PlayerDTO {
 
     private Long id;
     private String name;
     private String lastName;
     private String nationality;
     private Integer age;
+    private String position;
 
+    private String clubName;
 }
