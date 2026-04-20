@@ -25,6 +25,7 @@ public class PlayerServiceImpl implements PlayerService {
         this.clubRepository = clubRepository;
     }
 
+
     //Metodo interno
     private Player findPlayerEntityById(Long id){
         return playerRepository.findById(id)

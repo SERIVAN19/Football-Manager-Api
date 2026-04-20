@@ -14,4 +14,5 @@ public class CoachDTO {
     private String lastName;
     private String nationality;
     private Integer age;
+
 }
