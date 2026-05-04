@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
+//import java.util.List;
 
 @Entity
 @Table(name = "competitions")
@@ -21,7 +21,8 @@ public class Competition {
 
     private String name;
 
-    private Integer price;
+    @Column(name = "prize_amount")
+    private Integer prizeAmount;
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -30,6 +31,6 @@ public class Competition {
     private LocalDate endDate;
 
     //  OPCIONAL: relación bidireccional con Club
-    @ManyToMany(mappedBy = "competitions", fetch = FetchType.LAZY)
-    private List<Club> clubs;
+    //@ManyToMany(mappedBy = "competitions", fetch = FetchType.LAZY)
+    //private List<Club> clubs;
 }
