@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,4 +20,7 @@ public class ClubCreateDTO {   //Create
     private Long coachId;
 
     private Long associationId;
+
+    // 🔥 ManyToMany
+    private List<Long> competitionIds;
 }
