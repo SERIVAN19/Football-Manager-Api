@@ -5,15 +5,18 @@ import com.sergio.football.dto.ClubDTO;
 import com.sergio.football.entity.Association;
 import com.sergio.football.entity.Club;
 import com.sergio.football.entity.Coach;
+import com.sergio.football.entity.Competition;
 import com.sergio.football.exception.ResourceNotFoundException;
 import com.sergio.football.mapper.ClubMapper;
 import com.sergio.football.repository.AssociationRepository;
 import com.sergio.football.repository.ClubRepository;
 import com.sergio.football.repository.CoachRepository;
+import com.sergio.football.repository.CompetitionRepository;
 import com.sergio.football.service.ClubService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,6 +26,7 @@ public class ClubServiceImpl implements ClubService {
     private final ClubRepository clubRepository;
     private final CoachRepository coachRepository;
     private final AssociationRepository associationRepository;
+    private final CompetitionRepository competitionRepository;
 
     //Se crea el contructor con la anotation @RequiredArgsConstructor
 
@@ -76,6 +80,20 @@ public class ClubServiceImpl implements ClubService {
             club.setAssociation(association);
         }
 
+        // 🔥 ManyToMany -> Competitions
+        if (dto.getCompetitionIds() != null &&
+                !dto.getCompetitionIds().isEmpty()) {
+
+            List<Competition> competitions =
+                    competitionRepository.findAllById(dto.getCompetitionIds());
+
+            club.setCompetitions(competitions);
+
+        } else {
+
+            club.setCompetitions(Collections.emptyList());
+        }
+
         Club saved = clubRepository.save(club);
 
         return ClubMapper.toDTO(saved);
@@ -104,6 +122,15 @@ public class ClubServiceImpl implements ClubService {
             Association association = associationRepository.findById(dto.getAssociationId())
                     .orElseThrow(() -> new ResourceNotFoundException("Asociación no encontrada"));
             existingClub.setAssociation(association);
+        }
+
+        // 🔥 ManyToMany -> Competitions
+        if (dto.getCompetitionIds() != null) {
+
+            List<Competition> competitions =
+                    competitionRepository.findAllById(dto.getCompetitionIds());
+
+            club.setCompetitions(competitions);
         }
         */
         Club updated = clubRepository.save(existingClub);
